@@ -28,7 +28,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   commandPaletteOpen: false,
   presenterNotesOpen: false,
   darkMode: false, // Default to warm ivory light mode per prompt specs
-  heroLandingOpen: false,
+  heroLandingOpen: true, // Opens with 3D Gold Mining Showcase Hero, scrolls into terminal
 
   setPresentationScale: (val) => set({ presentationScale: val }),
   setReduceMotion: (val) => set({ reduceMotion: val }),
