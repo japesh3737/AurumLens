@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: aurumlens-api
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn aurumlens.api.main:app --host 0.0.0.0 --port $PORT --app-dir backend"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PYTHONPATH
+        value: backend
+
+  - type: web
+    name: aurumlens-terminal
+    runtime: static
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: "./dist"
