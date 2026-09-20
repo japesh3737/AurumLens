@@ -62,7 +62,7 @@ export function App() {
       }`}
     >
       {/* Top Status Bar (Charcoal shell) */}
-      <StatusBar />
+      <StatusBar currentScreen={currentScreen} onNavigateScreen={setCurrentScreen} />
 
       {/* Main Terminal Body */}
       <div className="flex-1 flex overflow-hidden">
@@ -83,6 +83,7 @@ export function App() {
               snapshot={snapshot}
               selectedPair={selectedPair}
               onSelectPair={setSelectedPair}
+              onNavigate={setCurrentScreen}
             />
           )}
           {currentScreen === 'curve' && <FuturesCurveScreen snapshot={snapshot} />}

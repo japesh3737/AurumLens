@@ -5,13 +5,15 @@ import { GateStrip } from '../viz/GateStrip';
 import { HedgeCard } from '../viz/HedgeCard';
 import { formatINR, formatBps, formatNumber } from '../lib/format';
 import { fetchSeries } from '../lib/api';
-import { ArrowRight, Gauge, HelpCircle, Layers } from 'lucide-react';
+import { ArrowRight, Gauge, HelpCircle, Layers, Play } from 'lucide-react';
 import { useSettingsStore } from '../store/settingsStore';
+import { ScreenId } from '../app/Navbar';
 
 interface RelativeValueProps {
   snapshot: DailySnapshot | null;
   selectedPair: string;
   onSelectPair: (pair: string) => void;
+  onNavigate?: (screen: ScreenId) => void;
 }
 
 const ALL_PAIRS = [
@@ -23,7 +25,7 @@ const ALL_PAIRS = [
   'GOLDM-GOLDPETAL',
 ];
 
-export function RelativeValueScreen({ snapshot, selectedPair, onSelectPair }: RelativeValueProps) {
+export function RelativeValueScreen({ snapshot, selectedPair, onSelectPair, onNavigate }: RelativeValueProps) {
   const [seriesData, setSeriesData] = useState<any[]>([]);
   const { setAssumptionsOpen } = useSettingsStore();
 
@@ -73,21 +75,34 @@ export function RelativeValueScreen({ snapshot, selectedPair, onSelectPair }: Re
           </h1>
         </div>
 
-        {/* Segmented Pair Selector */}
-        <div className="flex items-center gap-1 bg-ivory dark:bg-gunmetal p-1 rounded-lg border border-hair dark:border-hair/50 flex-wrap">
-          {ALL_PAIRS.map((p) => (
+        {/* Right Action Block: Segmented Pair Selector & Backtest CTA */}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-1 bg-ivory dark:bg-gunmetal p-1 rounded-lg border border-hair dark:border-hair/50 flex-wrap">
+            {ALL_PAIRS.map((p) => (
+              <button
+                key={p}
+                onClick={() => onSelectPair(p)}
+                className={`px-2.5 py-1 rounded text-xs font-mono transition-all cursor-pointer ${
+                  selectedPair === p
+                    ? 'bg-gold text-charcoal font-bold shadow-sm'
+                    : 'text-ink-muted dark:text-silver hover:text-ink dark:hover:text-ivory hover:bg-hair/50 dark:hover:bg-charcoal'
+                }`}
+              >
+                {p.replace(/GOLD/g, 'G.')}
+              </button>
+            ))}
+          </div>
+
+          {onNavigate && (
             <button
-              key={p}
-              onClick={() => onSelectPair(p)}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-all cursor-pointer ${
-                selectedPair === p
-                  ? 'bg-gold text-charcoal font-bold shadow-sm'
-                  : 'text-ink-muted dark:text-silver hover:text-ink dark:hover:text-ivory hover:bg-hair/50 dark:hover:bg-charcoal'
-              }`}
+              onClick={() => onNavigate('backtest')}
+              className="btn-gold flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold cursor-pointer shrink-0 shadow-sm"
+              title="Test this pair directly in the Walk-Forward Backtest Engine"
             >
-              {p.replace(/GOLD/g, 'G.')}
+              <Play className="w-3.5 h-3.5 fill-current" />
+              BACKTEST PAIR →
             </button>
-          ))}
+          )}
         </div>
       </div>
 

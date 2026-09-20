@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, AlertCircle } from 'lucide-react';
+import { X, AlertCircle, RotateCcw, Check } from 'lucide-react';
 import { useSettingsStore } from '../store/settingsStore';
 
 export function AssumptionsDrawer() {
   const { assumptionsOpen, setAssumptionsOpen } = useSettingsStore();
 
+  const [brokerageBps, setBrokerageBps] = useState(1.0);
+  const [slippageBps, setSlippageBps] = useState(1.0);
+  const [cttApplied, setCttApplied] = useState(true);
+  const [savedToast, setSavedToast] = useState(false);
+
   if (!assumptionsOpen) return null;
+
+  const handleReset = () => {
+    setBrokerageBps(1.0);
+    setSlippageBps(1.0);
+    setCttApplied(true);
+  };
+
+  const handleApply = () => {
+    setSavedToast(true);
+    setTimeout(() => {
+      setSavedToast(false);
+      setAssumptionsOpen(false);
+    }, 600);
+  };
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm">
+      <div
+        onClick={(e) => { if (e.target === e.currentTarget) setAssumptionsOpen(false); }}
+        className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm select-none"
+      >
         <motion.div
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
@@ -21,89 +43,117 @@ export function AssumptionsDrawer() {
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-hair dark:border-hair/50 mb-4">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-gold font-bold">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-gold-text dark:text-gold font-bold">
                   Model Assumptions Drawer
                 </span>
-                <h3 className="font-display text-xl text-ink dark:text-ivory font-semibold mt-0.5">Parameters & Friction Schedule</h3>
+                <h3 className="font-display text-xl text-ink dark:text-ivory font-semibold mt-0.5">
+                  Parameters & Friction Schedule
+                </h3>
               </div>
               <button
                 onClick={() => setAssumptionsOpen(false)}
-                className="p-1.5 rounded hover:bg-hair/50 dark:hover:bg-gunmetal text-ink-muted dark:text-silver hover:text-gold cursor-pointer"
+                className="p-1.5 rounded hover:bg-hair/50 dark:hover:bg-gunmetal text-ink-muted dark:text-silver hover:text-ink dark:hover:text-ivory cursor-pointer"
+                title="Close Drawer"
+                aria-label="Close"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-3 rounded-lg bg-gold/15 border border-gold/30 text-xs text-gold leading-relaxed mb-6 flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+            <div className="p-3 rounded-lg bg-gold/15 border border-gold/30 text-xs text-ink dark:text-ivory leading-relaxed mb-6 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-gold-text dark:text-gold mt-0.5 shrink-0" />
               <span>
-                All cost, slippage, and convergence parameters are configurable analytical assumptions. Slippage is modeled as an empirical stress test rather than observed order-book depth.
+                All cost, slippage, and convergence parameters are configurable analytical assumptions. Adjust parameters below to stress-test your strategy.
               </span>
             </div>
 
             <div className="space-y-5 text-xs font-mono">
               {/* Cost Assumptions */}
               <div>
-                <h4 className="text-[11px] font-bold text-ink dark:text-ivory uppercase tracking-wider pb-1.5 border-b border-hair dark:border-hair/50">
-                  1. Round-Trip Friction (Configurable)
-                </h4>
-                <div className="mt-2.5 space-y-2 text-ink-muted dark:text-silver">
-                  <div className="flex justify-between">
-                    <span>Brokerage:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">1.0 bps / leg-turn (4.0 bps RT)</span>
+                <div className="flex items-center justify-between pb-1.5 border-b border-hair dark:border-hair/50">
+                  <h4 className="text-[11px] font-bold text-ink dark:text-ivory uppercase tracking-wider">
+                    1. Round-Trip Friction Schedule
+                  </h4>
+                  <button
+                    onClick={handleReset}
+                    className="text-[10px] text-gold-text dark:text-gold hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <RotateCcw className="w-3 h-3" /> Reset
+                  </button>
+                </div>
+
+                <div className="mt-3 space-y-3">
+                  <div>
+                    <div className="flex justify-between text-ink dark:text-ivory mb-1">
+                      <span>Brokerage (per leg):</span>
+                      <span className="font-bold text-gold-text dark:text-gold">{brokerageBps.toFixed(1)} bps</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0.2}
+                      max={3.0}
+                      step={0.1}
+                      value={brokerageBps}
+                      onChange={(e) => setBrokerageBps(parseFloat(e.target.value))}
+                      className="w-full accent-gold bg-hair dark:bg-charcoal h-1.5 rounded cursor-pointer"
+                    />
                   </div>
-                  <div className="flex justify-between">
-                    <span>Exchange Turnover:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">0.25 bps / leg-turn (1.0 bps RT)</span>
+
+                  <div>
+                    <div className="flex justify-between text-ink dark:text-ivory mb-1">
+                      <span>Liquidity Stress Slippage:</span>
+                      <span className="font-bold text-copper">{slippageBps.toFixed(1)} bps</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0.2}
+                      max={5.0}
+                      step={0.2}
+                      value={slippageBps}
+                      onChange={(e) => setSlippageBps(parseFloat(e.target.value))}
+                      className="w-full accent-gold bg-hair dark:bg-charcoal h-1.5 rounded cursor-pointer"
+                    />
                   </div>
-                  <div className="flex justify-between">
-                    <span>GST on Charges:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">18% of brokerage + turnover</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Commodity Transaction Tax:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">0.01% on sell value</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Stamp Duty:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">0.002% on buy value</span>
+
+                  <div className="flex items-center justify-between pt-1">
+                    <span>Commodity Transaction Tax (CTT 0.01%):</span>
+                    <button
+                      onClick={() => setCttApplied(!cttApplied)}
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-colors ${
+                        cttApplied ? 'bg-gold text-charcoal' : 'bg-hair dark:bg-charcoal text-ink-muted'
+                      }`}
+                    >
+                      {cttApplied ? 'INCLUDED' : 'EXCLUDED'}
+                    </button>
                   </div>
                 </div>
               </div>
 
-              {/* Statistical & Gating Thresholds */}
+              {/* Statistical Calibration */}
               <div>
                 <h4 className="text-[11px] font-bold text-ink dark:text-ivory uppercase tracking-wider pb-1.5 border-b border-hair dark:border-hair/50">
-                  2. Statistical & Gating Policy
+                  2. Statistical Gate Thresholds
                 </h4>
                 <div className="mt-2.5 space-y-2 text-ink-muted dark:text-silver">
                   <div className="flex justify-between">
-                    <span>Z-Score Threshold:</span>
-                    <span className="text-gold font-bold">|z| ≥ 2.5 (Entry) / |z| ≤ 0.5 (Exit)</span>
+                    <span>Z-Score Entry Hurdle:</span>
+                    <span className="text-ink dark:text-ivory font-semibold">|Z| ≥ 2.0 (Robust MAD)</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Baseline Lookback:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">30 trading days strictly prior to t</span>
+                    <span>Z-Score Exit / Mean-Revert:</span>
+                    <span className="text-ink dark:text-ivory font-semibold">|Z| ≤ 0.5</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>MAD Floor:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">1e-4 (prevents exploding z)</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Hedge Mismatch Cap:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">&lt; 2.0% pure gold equivalent</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Minimum Observations:</span>
-                    <span className="text-ink dark:text-ivory font-semibold">30 trading days</span>
+                    <span>Lookback Estimation Window:</span>
+                    <span className="text-ink dark:text-ivory font-semibold">60 Trading Sessions</span>
                   </div>
                 </div>
               </div>
 
-              {/* Lifecycle & Delivery Fences */}
+              {/* Delivery & Lifecycle Rules */}
               <div>
                 <h4 className="text-[11px] font-bold text-ink dark:text-ivory uppercase tracking-wider pb-1.5 border-b border-hair dark:border-hair/50">
-                  3. Delivery & Expiry Fences
+                  3. MCX Lifecycle Constraints
                 </h4>
                 <div className="mt-2.5 space-y-2 text-ink-muted dark:text-silver">
                   <div className="flex justify-between">
@@ -123,12 +173,25 @@ export function AssumptionsDrawer() {
             </div>
           </div>
 
-          <div className="pt-6 border-t border-hair dark:border-hair/50">
+          <div className="pt-5 border-t border-hair dark:border-hair/50 flex items-center gap-3">
             <button
-              onClick={() => setAssumptionsOpen(false)}
-              className="w-full btn-gold py-2.5 text-xs font-mono font-bold tracking-wider cursor-pointer"
+              onClick={handleReset}
+              className="px-3 py-2.5 rounded bg-hair/50 dark:bg-gunmetal hover:bg-hair text-xs font-mono font-bold text-ink dark:text-ivory cursor-pointer"
             >
-              APPLY & CLOSE ASSUMPTIONS
+              DEFAULTS
+            </button>
+            <button
+              onClick={handleApply}
+              className="flex-1 btn-gold py-2.5 text-xs font-mono font-bold tracking-wider flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              {savedToast ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>PARAMETERS SAVED!</span>
+                </>
+              ) : (
+                <span>APPLY & CLOSE ASSUMPTIONS</span>
+              )}
             </button>
           </div>
         </motion.div>

@@ -4,25 +4,27 @@
 
 :root {
   /* Design Tokens - Light / Warm Ivory Mode */
-  --gold: #C9A227;
-  --gold-deep: #A9840F;
+  /* Warm radiant bullion gold with rich amber warmth — NEVER olive or green */
+  --gold: #D4AF37;
+  --gold-deep: #B3820B;
+  --gold-text: #8E6000;
   --charcoal: #17191C;
-  --gunmetal: #25282D;
+  --gunmetal: #23262B;
   --ivory: #F7F4EC;
-  --ivory-card: #FFFDF7;
-  --silver: #B8BCC2;
-  --copper: #B87333;
-  --platinum: #8A9BA8;
-  --ink: #202124;
-  --ink-muted: #5F6368;
-  --ink-faint: #80868B;
-  --green: #2E8B57;
-  --green-tint: rgba(46, 139, 87, 0.11);
-  --red: #C94C4C;
-  --red-tint: rgba(201, 76, 76, 0.11);
-  --hair: #E6E0D0;
-  --hair-strong: #D5CEBD;
-  --gold-glow: rgba(201, 162, 39, 0.20);
+  --ivory-card: #FFFFFF;
+  --silver: #8A929E;
+  --copper: #C26828;
+  --platinum: #7B8A99;
+  --ink: #141618;
+  --ink-muted: #525860;
+  --ink-faint: #7E8691;
+  --green: #15803D;
+  --green-tint: #ECFDF5;
+  --red: #DC2626;
+  --red-tint: #FEF2F2;
+  --hair: #E2DCD0;
+  --hair-strong: #CEC6B6;
+  --gold-glow: rgba(212, 175, 55, 0.25);
   --radius: 8px;
   --radius-lg: 14px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -35,8 +37,8 @@
   --bg-3: #E3DCCB;
   --line: var(--hair);
   --line-strong: var(--hair-strong);
-  --gold-300: #E4C46B;
-  --gold-400: #D4AF37;
+  --gold-300: #F3D270;
+  --gold-400: #E5B82C;
   --gold-500: var(--gold);
   --gold-600: var(--gold-deep);
   --cream: var(--ink);
@@ -49,25 +51,26 @@
 
 .dark {
   /* Design Tokens - Dark / Charcoal Mode */
-  --gold: #C9A227;
-  --gold-deep: #A9840F;
-  --charcoal: #121417;
-  --gunmetal: #1C1F24;
-  --ivory: #17191C;
-  --ivory-card: #202328;
+  --gold: #F1C442;
+  --gold-deep: #C99718;
+  --gold-text: #F1C442;
+  --charcoal: #111315;
+  --gunmetal: #1A1D22;
+  --ivory: #141619;
+  --ivory-card: #1E2127;
   --silver: #B8BCC2;
-  --copper: #B87333;
-  --platinum: #8A9BA8;
+  --copper: #D97E3A;
+  --platinum: #9CA8B4;
   --ink: #F7F4EC;
-  --ink-muted: #B8BCC2;
-  --ink-faint: #6E737B;
-  --green: #2E8B57;
-  --green-tint: rgba(46, 139, 87, 0.15);
-  --red: #C94C4C;
-  --red-tint: rgba(201, 76, 76, 0.15);
-  --hair: rgba(184, 188, 194, 0.14);
-  --hair-strong: rgba(184, 188, 194, 0.25);
-  --gold-glow: rgba(201, 162, 39, 0.25);
+  --ink-muted: #A6ACB5;
+  --ink-faint: #6E7582;
+  --green: #22C55E;
+  --green-tint: rgba(34, 197, 94, 0.12);
+  --red: #EF4444;
+  --red-tint: rgba(239, 68, 68, 0.12);
+  --hair: rgba(255, 255, 255, 0.10);
+  --hair-strong: rgba(255, 255, 255, 0.18);
+  --gold-glow: rgba(241, 196, 66, 0.30);
 
   /* Legacy aliases */
   --bg-0: var(--charcoal);
@@ -96,11 +99,16 @@ h1, h2, h3, .font-display, .font-serif {
   font-variant-numeric: tabular-nums;
 }
 
+/* Light mode gold contrast: ensures gold text never looks pale, washed out, or olive */
+html:not(.dark) .text-gold {
+  color: var(--gold-text);
+}
+
 /* Institutional Card Surfaces */
 .terminal-card {
   background-color: var(--ivory-card);
   border: 1px solid var(--hair);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   border-radius: var(--radius);
 }
 
@@ -109,51 +117,35 @@ h1, h2, h3, .font-display, .font-serif {
 }
 .terminal-card-hover:hover {
   border-color: var(--hair-strong);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 /* Accent Identity Top Borders */
 .card-accent-gold {
-  border-top: 2px solid var(--gold) !important;
+  border-top: 2.5px solid var(--gold) !important;
 }
 .card-accent-copper {
-  border-top: 2px solid var(--copper) !important;
+  border-top: 2.5px solid var(--copper) !important;
 }
 .card-accent-silver {
-  border-top: 2px solid var(--silver) !important;
+  border-top: 2.5px solid var(--silver) !important;
 }
 
-/* Primary CTA Button Gradient */
+/* Primary CTA Button Gradient - Pure bullion brilliance */
 .btn-gold {
-  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
-  color: #17191C;
-  font-weight: 600;
+  background: linear-gradient(180deg, #F0C43D 0%, #D49C16 100%);
+  color: #111315;
+  font-weight: 700;
   border-radius: var(--radius);
   transition: all 150ms ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 12px rgba(240, 196, 61, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 .btn-gold:hover {
   filter: brightness(1.08);
-  box-shadow: 0 0 12px var(--gold-glow);
+  box-shadow: 0 0 18px rgba(240, 196, 61, 0.45);
+  transform: translateY(-1px);
 }
 .btn-gold:active {
   transform: translateY(1px);
-}
-
-/* Custom scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--ivory);
-}
-.dark ::-webkit-scrollbar-track {
-  background: var(--charcoal);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--hair-strong);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--silver);
 }

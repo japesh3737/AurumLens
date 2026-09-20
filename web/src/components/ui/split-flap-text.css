@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--split-flap-gap, 6px);
-  color: var(--split-flap-text-color, #C9A227);
+  color: var(--split-flap-text-color, #F1C442);
   font-family: 'IBM Plex Mono', monospace;
   font-size: var(--split-flap-font-size, 13px);
   font-weight: 700;
@@ -105,7 +105,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--split-flap-text-color, #C9A227);
+  color: var(--split-flap-text-color, #F1C442);
   text-shadow:
     0 0.025em 0 rgba(255, 255, 255, 0.12),
     0 0.09em 0.16em rgba(0, 0, 0, 0.5);

@@ -83,13 +83,13 @@ export function CurveChart({
     switch (sym) {
       case 'GOLDM':
       case 'GOLDTEN':
-        return '#C9A227'; // Gold
+        return '#D4AF37'; // Radiant Bullion Gold
       case 'GOLDGUINEA':
-        return '#B87333'; // Copper
+        return '#C26828'; // Warm Copper
       case 'GOLDPETAL':
-        return '#B8BCC2'; // Silver
+        return '#8A929E'; // Institutional Silver
       default:
-        return '#C9A227';
+        return '#D4AF37';
     }
   };
 
@@ -230,8 +230,8 @@ export function CurveChart({
             <path
               d={curvePath}
               fill="none"
-              stroke="#C9A227"
-              strokeWidth="2.2"
+              stroke="#D4AF37"
+              strokeWidth="2.4"
               strokeDasharray="4 2"
               className="drop-shadow-sm"
             />
@@ -254,10 +254,10 @@ export function CurveChart({
                   y1={cy}
                   x2={cx}
                   y2={cyFair}
-                  stroke={p.norm_close >= (p.curve_price || p.norm_close) ? '#2E8B57' : '#C94C4C'}
-                  strokeWidth="1.5"
+                  stroke={p.norm_close >= (p.curve_price || p.norm_close) ? '#16A34A' : '#DC2626'}
+                  strokeWidth="1.6"
                   strokeDasharray="2 2"
-                  opacity="0.8"
+                  opacity="0.85"
                 />
 
                 {/* Point Circle */}

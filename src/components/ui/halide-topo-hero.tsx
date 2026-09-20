@@ -121,7 +121,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
         :root {
           --halide-bg: #111315;
           --halide-silver: #F7F4EC;
-          --halide-accent: #C9A227;
+          --halide-accent: #D4AF37;
           --halide-gold-glow: rgba(255, 215, 0, 0.85);
           --halide-copper: #B87333;
         }
@@ -308,7 +308,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
 
         .halide-cta-button {
           pointer-events: auto;
-          background: linear-gradient(135deg, #E5C158 0%, #C9A227 60%, #A9840F 100%);
+          background: linear-gradient(135deg, #E5C158 0%, #D4AF37 60%, #A9840F 100%);
           color: #111315;
           padding: 0.85rem 2rem;
           font-family: 'Inter', sans-serif;
@@ -354,7 +354,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
 
       <div ref={containerRef} className={`halide-body ${isExiting ? 'is-exiting' : ''}`}>
         {/* Subdued background dust texture */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.08] bg-[radial-gradient(#C9A227_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.08] bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]" />
 
         {/* Floating Top & Bottom UI Layer */}
         <div className="halide-interface-grid">
@@ -483,7 +483,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                   <radialGradient id="pitCoreGlow" cx="50%" cy="50%" r="50%">
                     <stop offset="0%" stopColor="#FFF2A0" stopOpacity="1" />
                     <stop offset="25%" stopColor="#FFD700" stopOpacity="0.95" />
-                    <stop offset="55%" stopColor="#C9A227" stopOpacity="0.75" />
+                    <stop offset="55%" stopColor="#D4AF37" stopOpacity="0.75" />
                     <stop offset="80%" stopColor="#B87333" stopOpacity="0.35" />
                     <stop offset="100%" stopColor="#121316" stopOpacity="0" />
                   </radialGradient>
@@ -525,7 +525,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                 />
 
                 {/* Perimeter Land Strata Fault Lines */}
-                <g opacity="0.3" stroke="#C9A227" strokeWidth="0.75" strokeDasharray="5 15">
+                <g opacity="0.3" stroke="#D4AF37" strokeWidth="0.75" strokeDasharray="5 15">
                   <path d="M 40,80 Q 250,50 480,90 T 960,70" fill="none" />
                   <path d="M 40,570 Q 300,600 600,560 T 960,580" fill="none" />
                   <path d="M 80,40 Q 50,300 70,600" fill="none" />
@@ -598,7 +598,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                      Q 500,405 375,380 
                      Q 335,325 370,270 Z"
                   fill="#0D0E10"
-                  stroke="#C9A227"
+                  stroke="#D4AF37"
                   strokeWidth="1.8"
                   strokeDasharray="12 4"
                   filter="url(#benchShadow)"
@@ -655,7 +655,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                      Q 355,325 435,310 
                      Q 500,300 500,330"
                   fill="none"
-                  stroke="#C9A227"
+                  stroke="#D4AF37"
                   strokeWidth="1.5"
                   strokeDasharray="6 8"
                   opacity="0.6"
@@ -702,7 +702,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                   <path
                     d="M 60,70 Q 180,140 260,190 T 360,260 T 450,300 T 500,330"
                     fill="none"
-                    stroke="#C9A227"
+                    stroke="#D4AF37"
                     strokeWidth="7"
                     opacity="0.5"
                     strokeLinecap="round"
@@ -745,7 +745,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                   <path
                     d="M 940,90 Q 820,150 740,210 T 630,280 T 550,315 T 500,330"
                     fill="none"
-                    stroke="#C9A227"
+                    stroke="#D4AF37"
                     strokeWidth="6"
                     opacity="0.5"
                   />
@@ -799,7 +799,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                   <path
                     d="M 860,570 Q 760,490 670,430 T 580,365 T 500,330"
                     fill="none"
-                    stroke="#C9A227"
+                    stroke="#D4AF37"
                     strokeWidth="5"
                     opacity="0.5"
                   />
@@ -859,14 +859,14 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                 preserveAspectRatio="xMidYMid meet"
               >
                 {/* Elevation Iso-Contour Lines */}
-                <g fill="none" stroke="#C9A227" strokeWidth="0.75" strokeDasharray="3 6" opacity="0.45">
+                <g fill="none" stroke="#D4AF37" strokeWidth="0.75" strokeDasharray="3 6" opacity="0.45">
                   <path d="M 140,140 Q 500,95 860,140 Q 900,325 850,505 Q 500,550 150,505 Q 100,325 140,140 Z" />
                   <path d="M 230,200 Q 500,165 770,200 Q 805,325 765,445 Q 500,485 240,445 Q 195,325 230,200 Z" />
                   <path d="M 330,250 Q 500,225 670,250 Q 700,325 665,400 Q 500,430 335,400 Q 295,325 330,250 Z" />
                 </g>
 
                 {/* Topographic Elevation Tags Along Contours */}
-                <g fontFamily="IBM Plex Mono, monospace" fontSize="9" fill="#C9A227" opacity="0.85">
+                <g fontFamily="IBM Plex Mono, monospace" fontSize="9" fill="#D4AF37" opacity="0.85">
                   <text x="500" y="85" textAnchor="middle">EL. +480m [SURFACE RIM]</text>
                   <text x="500" y="155" textAnchor="middle">BENCH 01 // EL. +360m [UPPER TERRACE]</text>
                   <text x="500" y="215" textAnchor="middle">BENCH 02 // EL. +240m [AU-QUARTZ HORIZON]</text>
@@ -899,12 +899,12 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                   {/* Vertical Survey Laser Gradients */}
                   <linearGradient id="laserBeam1" x1="0%" y1="100%" x2="0%" y2="0%">
                     <stop offset="0%" stopColor="#FFD700" stopOpacity="1" />
-                    <stop offset="60%" stopColor="#C9A227" stopOpacity="0.7" />
+                    <stop offset="60%" stopColor="#D4AF37" stopOpacity="0.7" />
                     <stop offset="100%" stopColor="#FFFDF7" stopOpacity="0" />
                   </linearGradient>
 
                   <linearGradient id="laserBeam2" x1="0%" y1="100%" x2="0%" y2="0%">
-                    <stop offset="0%" stopColor="#2E8B57" stopOpacity="1" />
+                    <stop offset="0%" stopColor="#16A34A" stopOpacity="1" />
                     <stop offset="70%" stopColor="#10B981" stopOpacity="0.5" />
                     <stop offset="100%" stopColor="#FFFDF7" stopOpacity="0" />
                   </linearGradient>
@@ -913,7 +913,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
                 {/* DRILL RIG ALPHA (Northwest Bench) */}
                 <g>
                   {/* Ground Ring Target */}
-                  <circle cx="310" cy="220" r="14" fill="none" stroke="#C9A227" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <circle cx="310" cy="220" r="14" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="3 3" />
                   <circle cx="310" cy="220" r="4" fill="#FFD700" />
                   <circle cx="310" cy="220" r="14" fill="none" stroke="#FFD700" strokeWidth="1" className="animate-beacon-ping" />
                   {/* Vertical Laser Projection Beam */}
@@ -924,7 +924,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
 
                 {/* DRILL RIG BETA (Eastern Ridge) */}
                 <g>
-                  <circle cx="730" cy="230" r="14" fill="none" stroke="#C9A227" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <circle cx="730" cy="230" r="14" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="3 3" />
                   <circle cx="730" cy="230" r="4" fill="#FFD700" />
                   <circle cx="730" cy="230" r="14" fill="none" stroke="#FFD700" strokeWidth="1" className="animate-beacon-ping" />
                   <line x1="730" y1="230" x2="730" y2="140" stroke="url(#laserBeam1)" strokeWidth="2.5" />
@@ -933,7 +933,7 @@ export const HalideTopoHero: React.FC<HalideTopoHeroProps> = ({
 
                 {/* ASSAY SENSOR GAMMA (Southern Pit Wall) */}
                 <g>
-                  <circle cx="420" cy="450" r="12" fill="none" stroke="#2E8B57" strokeWidth="1.5" strokeDasharray="2 2" />
+                  <circle cx="420" cy="450" r="12" fill="none" stroke="#16A34A" strokeWidth="1.5" strokeDasharray="2 2" />
                   <circle cx="420" cy="450" r="3.5" fill="#10B981" />
                   <line x1="420" y1="450" x2="420" y2="370" stroke="url(#laserBeam2)" strokeWidth="2" />
                   <circle cx="420" cy="370" r="3" fill="#10B981" />

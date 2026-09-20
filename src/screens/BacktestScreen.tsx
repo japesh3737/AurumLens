@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Play, RotateCcw, AlertTriangle, ShieldCheck, Layers } from 'lucide-react';
+import { Play, RotateCcw, AlertTriangle, ShieldCheck, Layers, Download } from 'lucide-react';
 import { AttributionChart } from '../viz/AttributionChart';
 import { CursorGrid } from '../components/ui/cursor-grid';
 import { runBacktestApi } from '../lib/api';
@@ -44,6 +44,31 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
     });
   };
 
+  const resetParams = () => {
+    setEntryZ(2.5);
+    setExitZ(0.5);
+    setMaxHolding(20);
+    setExecutionLag(1);
+    setBrokerageBps(1.0);
+    setSlippageBps(1.0);
+  };
+
+  const exportCsv = () => {
+    if (!equityData || equityData.length === 0) return;
+    const header = 'Date,Day_Index,Net_Cumulative_PnL_INR\n';
+    const rows = equityData.map((e: any, idx: number) => 
+      `${e.date || ''},${idx + 1},${Math.round(e.cum_net || 0)}`
+    ).join('\n');
+    const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `aurumlens_${selectedPair}_backtest.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   useEffect(() => {
     executeBacktest();
   }, [selectedPair]);
@@ -57,7 +82,7 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
     tooltip: {
       trigger: 'axis',
       backgroundColor: '#17191C',
-      borderColor: '#C9A227',
+      borderColor: '#D4AF37',
       textStyle: { color: '#F7F4EC', fontFamily: 'IBM Plex Mono', fontSize: 11 },
       formatter: (params: any) => {
         const item = params[0];
@@ -74,7 +99,7 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
     yAxis: {
       type: 'value',
       axisLine: { show: false },
-      splitLine: { lineStyle: { color: 'rgba(201,162,39,0.10)' } },
+      splitLine: { lineStyle: { color: 'rgba(212,175,55,0.12)' } },
       axisLabel: {
         color: '#5F6368',
         fontFamily: 'IBM Plex Mono',
@@ -87,7 +112,7 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
         name: 'Cumulative Net P&L',
         type: 'line',
         data: equityData.map((e: any) => e.cum_net),
-        lineStyle: { color: '#C9A227', width: 2.2 },
+        lineStyle: { color: '#D4AF37', width: 2.2 },
         showSymbol: false,
         areaStyle: {
           color: {
@@ -97,8 +122,8 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: 'rgba(201,162,39,0.20)' },
-              { offset: 1, color: 'rgba(201,162,39,0.0)' },
+              { offset: 0, color: 'rgba(212,175,55,0.20)' },
+              { offset: 1, color: 'rgba(212,175,55,0.0)' },
             ],
           },
         },
@@ -113,7 +138,7 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
           <CursorGrid
             cellSize={64}
-            color="#C9A227"
+            color="#D4AF37"
             radius={120}
             falloff="smooth"
             holdTime={500}
@@ -141,14 +166,25 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
           </h1>
         </div>
 
-        <button
-          onClick={executeBacktest}
-          disabled={loading}
-          className="btn-gold flex items-center gap-2 px-5 py-2 text-xs font-mono font-bold cursor-pointer disabled:opacity-50"
-        >
-          {loading ? <RotateCcw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4 fill-current" />}
-          {loading ? 'CALCULATING...' : 'RUN BACKTEST'}
-        </button>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            onClick={exportCsv}
+            disabled={!equityData || equityData.length === 0}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-ivory-card dark:bg-gunmetal hover:bg-hair/50 dark:hover:bg-charcoal border border-hair dark:border-hair/60 text-xs font-mono font-semibold text-ink dark:text-ivory transition-colors cursor-pointer disabled:opacity-40 shadow-xs"
+            title="Download full walk-forward equity series as CSV"
+          >
+            <Download className="w-3.5 h-3.5 text-gold" />
+            EXPORT TRADES (CSV)
+          </button>
+          <button
+            onClick={executeBacktest}
+            disabled={loading}
+            className="btn-gold flex items-center gap-2 px-5 py-2 text-xs font-mono font-bold cursor-pointer disabled:opacity-50"
+          >
+            {loading ? <RotateCcw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4 fill-current" />}
+            {loading ? 'CALCULATING...' : 'RUN BACKTEST'}
+          </button>
+        </div>
       </div>
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -288,6 +324,19 @@ export function BacktestScreen({ defaultPair = 'GOLDTEN-GOLDPETAL' }: { defaultP
                 * Warning: Same-day settlement fill is an optimistic assumption.
               </div>
             )}
+          </div>
+
+          {/* Reset Parameters Button */}
+          <div className="pt-3 border-t border-hair dark:border-hair/50 flex items-center justify-between font-mono text-xs">
+            <span className="text-[10px] text-ink-muted dark:text-silver">Model Parameters</span>
+            <button
+              onClick={resetParams}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-ivory dark:bg-charcoal hover:bg-hair/50 dark:hover:bg-gunmetal border border-hair dark:border-hair/60 text-[11px] font-bold text-gold cursor-pointer transition-colors"
+              title="Reset all backtest inputs to institutional baseline"
+            >
+              <RotateCcw className="w-3 h-3" />
+              RESET PARAMETERS
+            </button>
           </div>
         </div>
 

@@ -182,12 +182,12 @@ export function NormalizationStage({
                   style={{
                     background:
                       r.symbol === 'GOLDM' && phase === 'purity'
-                        ? 'linear-gradient(90deg, #C9A227, #E4C46B, #C9A227)'
+                        ? 'linear-gradient(90deg, #D4AF37, #F1C442, #D4AF37)'
                         : r.symbol === 'GOLDGUINEA'
-                        ? 'linear-gradient(90deg, #9A5E26, #B87333)'
+                        ? 'linear-gradient(90deg, #A85A1E, #C26828)'
                         : r.symbol === 'GOLDPETAL'
-                        ? 'linear-gradient(90deg, #787D84, #B8BCC2)'
-                        : 'linear-gradient(90deg, #A9840F, #C9A227)',
+                        ? 'linear-gradient(90deg, #6B7280, #8A929E)'
+                        : 'linear-gradient(90deg, #B3820B, #D4AF37)',
                     height: phase === 'raw' ? (r.grams >= 100 ? '28px' : r.grams >= 10 ? '22px' : r.grams >= 8 ? '18px' : '14px') : '22px',
                     width: phase === 'raw' ? (r.grams >= 100 ? '90%' : r.grams >= 10 ? '45%' : r.grams >= 8 ? '38%' : '20%') : '50%',
                     color: '#17191C',

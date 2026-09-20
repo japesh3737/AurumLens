@@ -9,17 +9,17 @@ const retroButtonVariants = cva(
       variant: {
         default: [
           "text-[#17191C] font-semibold",
-          "[--bg-color:#C9A227]",
-          "[--bg-color-active:#A9840F]",
-          "[--shadow-light:#E4C46B]",
-          "[--shadow-dark:#7A5E0B]",
+          "[--bg-color:#D4AF37]",
+          "[--bg-color-active:#B3820B]",
+          "[--shadow-light:#F1C442]",
+          "[--shadow-dark:#8E6000]",
         ],
         gold: [
           "text-[#17191C] font-semibold",
-          "[--bg-color:#C9A227]",
-          "[--bg-color-active:#A9840F]",
-          "[--shadow-light:#E4C46B]",
-          "[--shadow-dark:#7A5E0B]",
+          "[--bg-color:#D4AF37]",
+          "[--bg-color-active:#B3820B]",
+          "[--shadow-light:#F1C442]",
+          "[--shadow-dark:#8E6000]",
         ],
         darkGray: [
           "text-ivory",

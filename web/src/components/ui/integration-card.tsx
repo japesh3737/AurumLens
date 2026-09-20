@@ -111,7 +111,7 @@ const AnimatedPath = ({ d, id }: { d: string; id: string }) => {
       <defs>
         <linearGradient id={id} gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="transparent" />
-          <stop offset="50%" stopColor="#C9A227" stopOpacity="0.8" />
+          <stop offset="50%" stopColor="#D4AF37" stopOpacity="0.85" />
           <stop offset="100%" stopColor="transparent" />
         </linearGradient>
       </defs>

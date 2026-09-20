@@ -70,14 +70,14 @@ export function PresenterMode({ onNavigateScreen }: PresenterProps) {
             {currentStep.title}
           </h3>
 
-          <div className="p-3 rounded-lg bg-gunmetal border border-gunmetal/80 text-xs font-mono text-silver flex items-start gap-2.5">
+          <div className="p-3.5 rounded-lg bg-gunmetal border border-gunmetal/80 text-xs font-mono text-silver flex items-start gap-2.5">
             <Volume2 className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-            <p className="leading-relaxed">{currentStep.script}</p>
+            <p className="leading-relaxed text-ivory/90">{currentStep.narration || currentStep.script}</p>
           </div>
 
           <div className="flex items-center gap-2 text-[11px] font-mono text-gold pt-1">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Demonstrating: {currentStep.highlight_element}</span>
+            <span>Target: {currentStep.highlight_element || currentStep.title}</span>
           </div>
         </div>
 

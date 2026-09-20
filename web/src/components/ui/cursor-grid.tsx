@@ -34,7 +34,7 @@ export interface CursorGridProps {
 
 export const CursorGrid: React.FC<CursorGridProps> = ({
   cellSize = 64,
-  color = '#C9A227',
+  color = '#D4AF37',
   radius = 120,
   falloff = 'smooth',
   holdTime = 500,

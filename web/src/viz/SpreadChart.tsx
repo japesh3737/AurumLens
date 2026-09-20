@@ -36,15 +36,15 @@ export function SpreadChart({
   const normB = points.map((s) => s.norm_b);
   const curveSpread = points.map((s) => (s.curve_adj_spread || 0) * 10000); // bps
 
-  const legBColor = symB.includes('GUINEA') ? '#B87333' : symB.includes('PETAL') ? '#B8BCC2' : '#C9A227';
+  const legBColor = symB.includes('GUINEA') ? '#C26828' : symB.includes('PETAL') ? '#8A929E' : '#D4AF37';
 
   // Mark lines for roll events
   const rollMarks = points
     .filter((s) => s.leg_roll)
     .map((s) => ({
       xAxis: s.date,
-      label: { formatter: 'Roll', position: 'top', color: '#C9A227', fontSize: 9 },
-      lineStyle: { color: '#A9840F', type: 'dashed', width: 1 },
+      label: { formatter: 'Roll', position: 'top', color: '#D4AF37', fontSize: 9 },
+      lineStyle: { color: '#B3820B', type: 'dashed', width: 1 },
     }));
 
   const chartOption = {
@@ -52,9 +52,9 @@ export function SpreadChart({
     tooltip: {
       trigger: 'axis',
       backgroundColor: '#17191C',
-      borderColor: '#C9A227',
+      borderColor: '#D4AF37',
       textStyle: { color: '#F7F4EC', fontFamily: 'IBM Plex Mono', fontSize: 11 },
-      axisPointer: { type: 'cross', lineStyle: { color: '#C9A227', width: 1, type: 'dashed' } },
+      axisPointer: { type: 'cross', lineStyle: { color: '#D4AF37', width: 1, type: 'dashed' } },
     },
     grid: [
       { left: '60px', right: '30px', top: '35px', height: '40%' },
@@ -82,7 +82,7 @@ export function SpreadChart({
         type: 'value',
         scale: true,
         axisLine: { show: false },
-        splitLine: { lineStyle: { color: 'rgba(201, 162, 39, 0.08)' } },
+        splitLine: { lineStyle: { color: 'rgba(212, 175, 55, 0.12)' } },
         axisLabel: {
           color: '#5F6368',
           fontFamily: 'IBM Plex Mono',
@@ -95,7 +95,7 @@ export function SpreadChart({
         type: 'value',
         scale: true,
         axisLine: { show: false },
-        splitLine: { lineStyle: { color: 'rgba(201, 162, 39, 0.08)' } },
+        splitLine: { lineStyle: { color: 'rgba(212, 175, 55, 0.12)' } },
         axisLabel: {
           color: '#5F6368',
           fontFamily: 'IBM Plex Mono',
@@ -113,7 +113,7 @@ export function SpreadChart({
         yAxisIndex: 0,
         smooth: true,
         showSymbol: false,
-        lineStyle: { color: '#C9A227', width: 2 },
+        lineStyle: { color: '#D4AF37', width: 2 },
         markLine: { data: rollMarks, symbol: 'none' },
       },
       {
@@ -134,7 +134,7 @@ export function SpreadChart({
         yAxisIndex: 1,
         smooth: true,
         showSymbol: false,
-        lineStyle: { color: '#C9A227', width: 2 },
+        lineStyle: { color: '#D4AF37', width: 2 },
         areaStyle: {
           color: {
             type: 'linear',
@@ -143,8 +143,8 @@ export function SpreadChart({
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: 'rgba(201, 162, 39, 0.20)' },
-              { offset: 1, color: 'rgba(201, 162, 39, 0.0)' },
+              { offset: 0, color: 'rgba(212, 175, 55, 0.20)' },
+              { offset: 1, color: 'rgba(212, 175, 55, 0.0)' },
             ],
           },
         },
