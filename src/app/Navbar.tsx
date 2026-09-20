@@ -59,11 +59,16 @@ export function Navbar({ currentScreen, onSelectScreen }: NavbarProps) {
         })}
       </div>
 
-      {/* Terminal Footer Panel (nested within charcoal using gunmetal) */}
-      <div className="mx-3 p-3 rounded-lg bg-gunmetal border border-gunmetal/90">
-        <div className="text-[10px] font-mono text-silver/70 uppercase tracking-wider">Exchange Feed</div>
-        <div className="text-xs font-mono text-ivory font-semibold mt-0.5">MCX Gold Futures</div>
-        <div className="text-[9px] font-mono text-gold/80 mt-1 leading-tight">
+      {/* Terminal Footer Panel (Exchange Feed Status) */}
+      <div className="mx-3 p-3 rounded-lg bg-gunmetal/90 border border-hair/20 shadow-sm antialiased">
+        <div className="flex items-center gap-1.5 text-[10px] font-mono font-medium text-silver uppercase tracking-wider">
+          <span className="w-1.5 h-1.5 rounded-full bg-termgreen inline-block animate-pulse" />
+          <span>Exchange Feed</span>
+        </div>
+        <div className="text-xs font-sans font-bold text-ivory tracking-wide mt-1">
+          MCX Gold Futures
+        </div>
+        <div className="text-[10px] font-mono text-silver/90 mt-1 leading-snug">
           GOLDM · GOLDTEN · GOLDGUINEA · GOLDPETAL
         </div>
       </div>
