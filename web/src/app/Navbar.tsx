@@ -40,9 +40,9 @@ export function Navbar({ currentScreen, onSelectScreen }: NavbarProps) {
 
   return (
     <>
-      <nav className="w-56 bg-charcoal border-r border-gunmetal/80 flex flex-col justify-between py-4 select-none shrink-0">
-        <div className="px-3 space-y-1">
-          <div className="px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-silver/60 font-semibold">
+      <nav className="w-56 bg-[#111315] border-r border-[#23262B] flex flex-col justify-between py-4 select-none shrink-0 h-full">
+        <div className="px-3 space-y-1.5">
+          <div className="px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-[#8A929E] font-bold">
             Terminal Screens
           </div>
           {items.map((item) => {
@@ -51,13 +51,15 @@ export function Navbar({ currentScreen, onSelectScreen }: NavbarProps) {
               <button
                 key={item.id}
                 onClick={() => onSelectScreen(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-xs font-mono transition-all text-left cursor-pointer ${
+                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-mono transition-all text-left cursor-pointer ${
                   isActive
-                    ? 'bg-gunmetal text-gold font-bold border border-gold/40 shadow-sm'
-                    : 'text-silver hover:text-ivory hover:bg-gunmetal/50'
+                    ? 'bg-[#23262B] text-[#F1C442] font-bold border-2 border-[#F1C442] shadow-[0_0_12px_rgba(241,196,66,0.25)]'
+                    : 'text-[#D0D4DC] hover:text-[#FFFFFF] hover:bg-[#1E2127]'
                 }`}
               >
-                <span className={isActive ? 'text-gold' : 'text-silver/70'}>{item.icon}</span>
+                <span className={isActive ? 'text-[#F1C442]' : 'text-[#8A929E]'}>
+                  {item.icon}
+                </span>
                 <span className="truncate">{item.label}</span>
               </button>
             );
@@ -67,20 +69,20 @@ export function Navbar({ currentScreen, onSelectScreen }: NavbarProps) {
         {/* Terminal Footer Panel (Interactive Exchange Feed Status) */}
         <button
           onClick={() => setFeedModalOpen(true)}
-          className="mx-3 p-3 rounded-lg bg-gunmetal/90 hover:bg-[#2C3038] border border-hair/20 hover:border-gold/40 shadow-sm transition-all text-left cursor-pointer group"
+          className="mx-3 p-3 rounded-lg bg-[#1A1D22] hover:bg-[#23262B] border border-[#2C3038] hover:border-[#F1C442]/60 shadow-sm transition-all text-left cursor-pointer group"
           title="Click to view real-time Bhavcopy specs & feed health"
         >
-          <div className="flex items-center justify-between text-[10px] font-mono font-medium text-silver uppercase tracking-wider">
+          <div className="flex items-center justify-between text-[10px] font-mono font-bold text-[#A6ACB5] uppercase tracking-wider">
             <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-termgreen inline-block animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#22C55E] inline-block animate-pulse" />
               <span>Exchange Feed</span>
             </div>
-            <ArrowRight className="w-3 h-3 text-silver/60 group-hover:text-gold group-hover:translate-x-0.5 transition-all" />
+            <ArrowRight className="w-3.5 h-3.5 text-[#8A929E] group-hover:text-[#F1C442] group-hover:translate-x-0.5 transition-all" />
           </div>
-          <div className="text-xs font-sans font-bold text-ivory tracking-wide mt-1 group-hover:text-gold transition-colors">
+          <div className="text-xs font-sans font-bold text-[#F7F4EC] tracking-wide mt-1 group-hover:text-[#F1C442] transition-colors">
             MCX Gold Futures
           </div>
-          <div className="text-[10px] font-mono text-silver/90 mt-1 leading-snug">
+          <div className="text-[10px] font-mono text-[#A6ACB5] mt-1 leading-snug font-medium">
             GOLDM · GOLDTEN · GOLDGUINEA · GOLDPETAL
           </div>
         </button>

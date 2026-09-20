@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { fetchIntegrity, fetchLookaheadAudit } from '../lib/api';
 import { formatNumber } from '../lib/format';
 import { ShieldCheck, CheckCircle2, FileText, RotateCcw, X, Check, Database, Hash } from 'lucide-react';
@@ -21,6 +21,7 @@ export function DataIntegrityScreen() {
   const [verifiedSuccess, setVerifiedSuccess] = useState(false);
   const [verificationStep, setVerificationStep] = useState(0);
   const [showSampleModal, setShowSampleModal] = useState(false);
+  const auditTableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchIntegrity().then((d) => {
@@ -51,6 +52,12 @@ export function DataIntegrityScreen() {
     };
   };
 
+  const scrollToAuditTable = () => {
+    if (auditTableRef.current) {
+      auditTableRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const agg = integrity?.aggregate || {};
   const dateAudit: any[] = integrity?.date_audit || [];
 
@@ -64,12 +71,12 @@ export function DataIntegrityScreen() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-hair dark:border-hair/50">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest font-mono text-gold font-bold px-2 py-0.5 rounded bg-gold/10 border border-gold/30">
+            <span className="text-[10px] uppercase tracking-widest font-mono text-gold-text dark:text-gold font-bold px-2 py-0.5 rounded bg-gold/15 border border-gold/40">
               Integrity & Provenance Layer
             </span>
             <span className="text-xs font-mono text-ink-muted dark:text-silver">Airtight Exchange Traceability</span>
           </div>
-          <h1 className="font-display text-2xl sm:text-3xl font-semibold text-ink dark:text-ivory mt-1">
+          <h1 className="font-display text-2xl sm:text-3xl font-bold text-ink dark:text-ivory mt-1">
             Data Quality & Look-Ahead Audit Certificate
           </h1>
         </div>
@@ -79,7 +86,7 @@ export function DataIntegrityScreen() {
             onClick={() => setShowSampleModal(true)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-ivory-card dark:bg-gunmetal hover:bg-hair/50 dark:hover:bg-charcoal border border-hair dark:border-hair/60 text-xs font-mono font-semibold text-ink dark:text-ivory transition-colors cursor-pointer shadow-xs"
           >
-            <FileText className="w-3.5 h-3.5 text-gold" />
+            <FileText className="w-3.5 h-3.5 text-gold-text dark:text-gold" />
             INSPECT RAW BHAVCOPY
           </button>
 
@@ -109,7 +116,7 @@ export function DataIntegrityScreen() {
       {isVerifying && (
         <div className="p-4 rounded-xl border border-gold/40 bg-gold/10 font-mono text-xs animate-pulse">
           <div className="flex items-center justify-between mb-2">
-            <span className="font-bold text-gold flex items-center gap-2">
+            <span className="font-bold text-gold-text dark:text-gold flex items-center gap-2">
               <RotateCcw className="w-4 h-4 animate-spin" />
               Verifying Cryptographic File Hashes Against Exchange Records...
             </span>
@@ -134,6 +141,7 @@ export function DataIntegrityScreen() {
       <IntegrationCard
         title="Multi-Feed Reconciliation & Data Provenance"
         description="Every price observation is reconciled across official exchange bhavcopies, sovereign reference rates, and spot bullion fixes before entering the signal engine."
+        onAuditClick={scrollToAuditTable}
       />
 
       {/* Aggregate Metric Tiles */}
@@ -146,7 +154,7 @@ export function DataIntegrityScreen() {
 
         <div className="terminal-card p-3 border border-hair dark:border-hair/50 bg-ivory-card dark:bg-gunmetal font-mono shadow-card">
           <span className="text-[10px] text-ink-muted dark:text-silver uppercase tracking-wider block">Raw Exchange Rows</span>
-          <div className="text-lg font-bold text-gold mt-1">{formatNumber(agg.total_rows_downloaded)}</div>
+          <div className="text-lg font-bold text-gold-text dark:text-gold mt-1">{formatNumber(agg.total_rows_downloaded)}</div>
           <span className="text-[9px] text-ink-faint dark:text-silver/60">Parsed from Bhavcopy</span>
         </div>
 
@@ -199,10 +207,10 @@ export function DataIntegrityScreen() {
       </div>
 
       {/* Requested vs Returned Date Audit Table */}
-      <div className="terminal-card p-5 border border-hair dark:border-hair/50 bg-ivory-card dark:bg-gunmetal shadow-card font-mono text-xs">
+      <div ref={auditTableRef} className="terminal-card p-5 border border-hair dark:border-hair/50 bg-ivory-card dark:bg-gunmetal shadow-card font-mono text-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-hair dark:border-hair/50 mb-3">
           <div>
-            <span className="text-xs uppercase tracking-widest text-gold font-semibold">
+            <span className="text-xs uppercase tracking-widest text-gold-text dark:text-gold font-bold">
               Requested vs Returned Date Audit Table
             </span>
             <span className="text-[10px] text-ink-muted dark:text-silver block mt-0.5">
@@ -275,8 +283,8 @@ export function DataIntegrityScreen() {
           <div className="bg-ivory-card dark:bg-gunmetal border border-hair dark:border-hair/50 rounded-xl shadow-2xl max-w-4xl w-full p-6 font-mono text-xs max-h-[85vh] flex flex-col">
             <div className="flex items-center justify-between pb-3 border-b border-hair dark:border-hair/50 mb-4">
               <div className="flex items-center gap-2">
-                <Database className="w-4 h-4 text-gold" />
-                <span className="font-bold text-gold uppercase tracking-wider text-sm">
+                <Database className="w-4 h-4 text-gold-text dark:text-gold" />
+                <span className="font-bold text-gold-text dark:text-gold uppercase tracking-wider text-sm">
                   Official MCX Bhavcopy Raw Record Stream
                 </span>
               </div>
@@ -289,7 +297,7 @@ export function DataIntegrityScreen() {
             </div>
 
             <p className="text-xs text-ink-muted dark:text-silver mb-3">
-              Direct ingestion snapshot from MCX Bhavcopy CSV (<code className="text-gold">com_bhav_*.csv</code>). Each record includes raw settlement prices, contract specification, open interest, and contract volume.
+              Direct ingestion snapshot from MCX Bhavcopy CSV (<code className="text-gold-text dark:text-gold font-bold">com_bhav_*.csv</code>). Each record includes raw settlement prices, contract specification, open interest, and contract volume.
             </p>
 
             <div className="overflow-x-auto flex-1 border border-hair dark:border-hair/40 rounded-lg">
@@ -313,7 +321,7 @@ export function DataIntegrityScreen() {
                   {SAMPLE_BHAVCOPY_RECORDS.map((r, idx) => (
                     <tr key={idx} className="hover:bg-ivory/80 dark:hover:bg-charcoal/50">
                       <td className="p-2 text-ink-muted dark:text-silver">{r.inst}</td>
-                      <td className="p-2 font-bold text-gold">{r.sym}</td>
+                      <td className="p-2 font-bold text-gold-text dark:text-gold">{r.sym}</td>
                       <td className="p-2 text-ink-muted dark:text-silver">{r.exp}</td>
                       <td className="p-2">{r.unit}</td>
                       <td className="p-2">{r.purity}‰</td>

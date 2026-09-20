@@ -99,8 +99,10 @@ h1, h2, h3, .font-display, .font-serif {
   font-variant-numeric: tabular-nums;
 }
 
-/* Light mode gold contrast: ensures gold text never looks pale, washed out, or olive */
-html:not(.dark) .text-gold {
+/* Light mode gold contrast: applied specifically to text-gold on light surfaces, never in dark shells */
+html:not(.dark) .bg-ivory .text-gold,
+html:not(.dark) .bg-ivory-card .text-gold,
+html:not(.dark) main .text-gold {
   color: var(--gold-text);
 }
 
