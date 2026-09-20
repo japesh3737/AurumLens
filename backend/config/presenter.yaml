@@ -1,0 +1,62 @@
+# AurumLens - Presenter & Story Mode Configuration
+# Guided demo flow for judges (~4:30 min)
+
+story_steps:
+  - id: 0
+    title: "Market Overview"
+    screen: "overview"
+    duration_s: 25
+    target_selector: "#overview-hero"
+    narration: "MCX lists gold four ways: GOLDM, GOLDTEN, GOLDGUINEA, and GOLDPETAL. Raw quoted prices look completely disparate, but every one of them represents pure physical gold."
+
+  - id: 1
+    title: "Basis Normalization"
+    screen: "overview"
+    action: "trigger_normalize"
+    duration_s: 35
+    target_selector: "#normalization-stage"
+    narration: "Different trading units, quote sizes, and purities (995 vs 999). We convert all four contracts into a common institutional basis: ₹ per 10 grams of 999 purity. Now they are mathematically comparable."
+
+  - id: 2
+    title: "Term Structure & Carry Adjustment"
+    screen: "curve"
+    duration_s: 35
+    target_selector: "#curve-container"
+    narration: "Even normalized prices shouldn't match identically — contracts expire on different dates. We fit a robust fair futures curve to separate calendar carry from genuine unexplained residuals."
+
+  - id: 3
+    title: "Cross-Contract Relative Value"
+    screen: "relative-value"
+    duration_s: 45
+    target_selector: "#rv-metrics"
+    narration: "Here is today's curve-adjusted spread versus its historical baseline. Naive retail indicators would flag an immediate arbitrage opportunity."
+
+  - id: 4
+    title: "The 9-Gate Signal Filter"
+    screen: "relative-value"
+    action: "run_gates"
+    duration_s: 40
+    target_selector: "#gate-strip"
+    narration: "AurumLens asks nine questions before triggering a signal: Data Quality, Normalization, Curve Quality, Statistical Deviation, History, Liquidity, Lifecycle Safety, Cost Survival, and Integer Exposure. We optimize for signal quality, not frequency."
+
+  - id: 5
+    title: "Replay Lab (No Look-Ahead Guarantee)"
+    screen: "replay"
+    action: "play_replay"
+    duration_s: 45
+    target_selector: "#replay-horizon"
+    narration: "Every statistic at day t uses only data strictly prior to t. The future is masked and invisible. Recomputing any historical day with the future truncated yields bit-identical outputs."
+
+  - id: 6
+    title: "Walk-Forward Backtest & Attribution"
+    screen: "backtest"
+    duration_s: 40
+    target_selector: "#attribution-chart"
+    narration: "Strict walk-forward execution with realistic execution lag and costs. Our attribution engine decomposes P&L into genuine relative-value versus simple gold market beta."
+
+  - id: 7
+    title: "Data Integrity & Traceability"
+    screen: "integrity"
+    duration_s: 30
+    target_selector: "#integrity-audit"
+    narration: "Every number traces directly back to official MCX exchange files, including holiday date mismatch detection. When no genuine edge survives costs, AurumLens stays quiet."

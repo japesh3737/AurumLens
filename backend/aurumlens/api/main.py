@@ -4,6 +4,8 @@ import yaml
 import pandas as pd
 from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, RedirectResponse
 from aurumlens.data.store import load_processed_data, load_integrity_audit
 from aurumlens.core.contracts import SPECS, normalize
 from aurumlens.core.lifecycle import compute_contract_lifecycles
@@ -239,7 +241,12 @@ def get_bookmarks():
 
 @app.get("/api/assumptions")
 def get_assumptions():
-    with open("config/engine.yaml", "r", encoding="utf-8") as f:
+    cfg_path = os.path.join(ROOT_DIR, "config", "engine.yaml")
+    if not os.path.exists(cfg_path):
+        cfg_path = os.path.join(os.path.dirname(__file__), "..", "..", "..", "config", "engine.yaml")
+    if not os.path.exists(cfg_path):
+        cfg_path = "config/engine.yaml"
+    with open(cfg_path, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
     return cfg
 
@@ -252,3 +259,50 @@ def run_backtest(req: BacktestRequest):
     df["norm"] = df.apply(lambda r: normalize(r["close"], SPECS.get(r["symbol"], SPECS["GOLDM"])), axis=1)
     results = run_walkforward_backtest(df, pair=req.pair, params=req.model_dump())
     return results
+
+# ---------------------------------------------------------------------------
+# Static Frontend Serving & Single Page App (SPA) Routing
+# ---------------------------------------------------------------------------
+POSSIBLE_DIST_DIRS = [
+    os.path.join(ROOT_DIR, "dist"),
+    os.path.join(ROOT_DIR, "backend", "dist"),
+    os.path.join(ROOT_DIR, "web", "dist"),
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "dist")),
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "dist")),
+]
+
+FOUND_DIST_DIR = None
+for d in POSSIBLE_DIST_DIRS:
+    if os.path.exists(d) and os.path.isdir(d):
+        FOUND_DIST_DIR = os.path.abspath(d)
+        break
+
+if FOUND_DIST_DIR:
+    assets_path = os.path.join(FOUND_DIST_DIR, "assets")
+    if os.path.exists(assets_path):
+        app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
+
+@app.get("/")
+def serve_root():
+    if FOUND_DIST_DIR:
+        index_file = os.path.join(FOUND_DIST_DIR, "index.html")
+        if os.path.exists(index_file):
+            return FileResponse(index_file)
+    return RedirectResponse(url="/docs")
+
+@app.get("/{full_path:path}")
+def serve_spa(full_path: str):
+    if full_path.startswith("api/") or full_path in ("docs", "openapi.json", "redoc"):
+        raise HTTPException(status_code=404, detail="Not Found")
+
+    if FOUND_DIST_DIR:
+        target_file = os.path.join(FOUND_DIST_DIR, full_path)
+        if os.path.exists(target_file) and os.path.isfile(target_file):
+            return FileResponse(target_file)
+
+        index_file = os.path.join(FOUND_DIST_DIR, "index.html")
+        if os.path.exists(index_file):
+            return FileResponse(index_file)
+
+    return RedirectResponse(url="/docs")
+

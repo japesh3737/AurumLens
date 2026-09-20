@@ -1,0 +1,13 @@
+{
+  "engine_version": "1.0.0",
+  "date_range": {
+    "start": "2024-12-02",
+    "end": "2025-02-28"
+  },
+  "total_trading_dates": 65,
+  "total_contracts": 18,
+  "lookahead_audit_status": "PASS",
+  "manifest_hash": "c14ad086558692f9",
+  "default_showcase_date": "2025-02-14",
+  "generated_at": "2026-09-20T15:24:48.514624Z"
+}

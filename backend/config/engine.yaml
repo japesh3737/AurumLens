@@ -1,0 +1,49 @@
+# AurumLens - Engine Configuration
+# NOTE: All cost figures and thresholds are configurable assumptions.
+
+curve:
+  min_points: 4                 # Minimum traded contracts required to fit curve
+  min_dte_spread_days: 3.0      # Narrow-tenor threshold in days
+  flat_carry_band_ann: 0.005    # Annualized carry < 0.5% => FLAT / MIXED
+  min_r2: 0.3                   # Fit quality floor
+
+pair_stats:
+  min_history_obs: 20           # Minimum observations for rolling baseline
+  min_history_goldten: 10       # Shorter history allowed for GOLDTEN (listed 2025)
+  rolling_window_days: 45       # Rolling lookback window
+  mad_floor: 0.0001             # Floor for MAD to avoid division by zero (1 bp)
+  watch_z: 1.5                  # Z-score watch threshold
+  entry_z: 2.5                  # Z-score entry threshold
+  exit_z: 0.5                   # Z-score convergence exit threshold
+  convergence_capture: 0.5      # Fraction of theoretical edge expected (assumption)
+
+liquidity:
+  high_vol_percentile: 70
+  medium_vol_percentile: 30
+  zero_vol_status: "VERY_LOW"
+  min_pair_tier: "MEDIUM"       # Gate requires both legs >= MEDIUM by default
+
+costs: # Round-trip cost model (ASSUMPTION - placeholder verify against broker/exchange schedule)
+  brokerage_bps: 1.0            # 0.01%
+  exchange_turnover_bps: 0.25   # 0.0025%
+  ctt_sell_side_bps: 1.0        # Commodity Transaction Tax on sell side (0.01%)
+  gst_on_charges_pct: 18.0      # 18% GST on brokerage + exchange fees
+  slippage_base_bps: 1.0        # Base slippage stress per leg
+  tier_multipliers:
+    HIGH: 1.0
+    MEDIUM: 1.5
+    LOW: 3.0
+    VERY_LOW: 10.0              # Gate fails if tier is VERY_LOW
+  min_net_edge_bps: 1.0         # Minimum positive net edge required to pass gate
+
+lifecycle:
+  restricted_entry_dte: 10      # Disallow entry within 10 calendar days of expiry (assumption)
+  forced_exit_dte: 5            # Force exit 5 calendar days before expiry (assumption)
+  max_holding_days: 20          # Maximum trade holding duration (assumption)
+
+backtest:
+  default_pair: "GOLDTEN-GOLDPETAL"
+  default_execution_lag: 1      # Signal on day t close -> fill on day t+1 settlement
+  default_lookback: 45
+  default_entry_z: 2.5
+  default_exit_z: 0.5

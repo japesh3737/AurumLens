@@ -1,7 +1,5 @@
 # Node dependencies & builds
 node_modules/
-dist/
-dist-ssr/
 *.local
 
 # Python caches

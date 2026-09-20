@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2025-02-14",
+    "type": "LARGEST_DEVIATION",
+    "title": "Period Peak Deviation (GOLDM-GOLDGUINEA)",
+    "pair": "GOLDM-GOLDGUINEA",
+    "description": "Highest statistical z-score (3.30) observed in historical sample."
+  },
+  {
+    "date": "2024-12-02",
+    "type": "CURVE_CONTANGO",
+    "title": "Term Structure in Contango",
+    "pair": "All",
+    "description": "Upward-sloping futures curve reflecting positive holding carry."
+  },
+  {
+    "date": "2025-02-01",
+    "type": "CURVE_BACKWARDATION",
+    "title": "Term Structure in Backwardation",
+    "pair": "All",
+    "description": "Downward-sloping futures curve signaling prompt demand premium."
+  },
+  {
+    "date": "2025-01-02",
+    "type": "SIGNAL_PASSED",
+    "title": "All 9 Gates Satisfied",
+    "pair": "GOLDGUINEA-GOLDPETAL",
+    "description": "GOLDGUINEA-GOLDPETAL successfully passed all statistical, liquidity, and cost gates."
+  }
+]

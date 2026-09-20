@@ -1,0 +1,65 @@
+# AurumLens - Contract Specifications
+# Source: https://www.mcxindia.com/products/bullion/gold
+# All specs verified against MCX contract specifications
+
+contracts:
+  GOLDM:
+    name: "Gold Mini"
+    trading_unit_g: 100
+    quote_unit_g: 10
+    purity: 995
+    expiry_window: "3rd-5th"
+    tick_size: 1.0
+    verified: true
+    source_url: "https://www.mcxindia.com/products/bullion/gold/gold-mini"
+    description: "100g unit quoted per 10g, 995 purity"
+    tender_period_days: 5 # tender window prior to expiry (assumption)
+    restricted_window_days: 10 # no entry within M days (assumption)
+    forced_exit_days: 5 # forced exit by N days (assumption)
+
+  GOLDTEN:
+    name: "Gold 10 Grams"
+    trading_unit_g: 10
+    quote_unit_g: 10
+    purity: 999
+    expiry_window: "27th-31st"
+    tick_size: 1.0
+    verified: true
+    source_url: "https://www.mcxindia.com/products/bullion/gold/gold-ten"
+    description: "10g unit quoted per 10g, 999 purity. Listed in 2025."
+    tender_period_days: 5
+    restricted_window_days: 10
+    forced_exit_days: 5
+
+  GOLDGUINEA:
+    name: "Gold Guinea"
+    trading_unit_g: 8
+    quote_unit_g: 8
+    purity: 999
+    expiry_window: "27th-31st"
+    tick_size: 1.0
+    verified: true
+    source_url: "https://www.mcxindia.com/products/bullion/gold/gold-guinea"
+    description: "8g unit quoted per 8g, 999 purity"
+    tender_period_days: 5
+    restricted_window_days: 10
+    forced_exit_days: 5
+
+  GOLDPETAL:
+    name: "Gold Petal"
+    trading_unit_g: 1
+    quote_unit_g: 1
+    purity: 999
+    expiry_window: "27th-31st"
+    tick_size: 1.0
+    verified: true
+    source_url: "https://www.mcxindia.com/products/bullion/gold/gold-petal"
+    description: "1g unit quoted per 1g, 999 purity"
+    tender_period_days: 5
+    restricted_window_days: 10
+    forced_exit_days: 5
+
+target:
+  quote_g: 10
+  purity: 999
+  unit_description: "INR per 10 grams of 999-equivalent gold"
