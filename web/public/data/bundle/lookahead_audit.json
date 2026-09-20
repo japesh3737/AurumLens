@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "passed": true,
+  "verified_dates_count": 20,
+  "total_dates_in_dataset": 65,
+  "sample_size": 20,
+  "verified_dates": [
+    "2024-12-02",
+    "2024-12-05",
+    "2024-12-10",
+    "2024-12-13",
+    "2024-12-18",
+    "2024-12-23",
+    "2024-12-27",
+    "2025-01-01",
+    "2025-01-06",
+    "2025-01-09",
+    "2025-01-14",
+    "2025-01-17",
+    "2025-01-22",
+    "2025-01-27",
+    "2025-01-30",
+    "2025-02-03",
+    "2025-02-06",
+    "2025-02-11",
+    "2025-02-14",
+    "2025-02-19"
+  ],
+  "failures": [],
+  "guarantee": "Strict Truncation Invariance: every statistic at day t uses only data with timestamp <= t."
+}

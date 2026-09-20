@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Design Tokens - Light / Warm Ivory Mode */
+  --gold: #C9A227;
+  --gold-deep: #A9840F;
+  --charcoal: #17191C;
+  --gunmetal: #25282D;
+  --ivory: #F7F4EC;
+  --ivory-card: #FFFDF7;
+  --silver: #B8BCC2;
+  --copper: #B87333;
+  --platinum: #8A9BA8;
+  --ink: #202124;
+  --ink-muted: #5F6368;
+  --ink-faint: #80868B;
+  --green: #2E8B57;
+  --green-tint: rgba(46, 139, 87, 0.11);
+  --red: #C94C4C;
+  --red-tint: rgba(201, 76, 76, 0.11);
+  --hair: #E6E0D0;
+  --hair-strong: #D5CEBD;
+  --gold-glow: rgba(201, 162, 39, 0.20);
+  --radius: 8px;
+  --radius-lg: 14px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Legacy aliases for backward compatibility */
+  --bg-0: var(--ivory);
+  --bg-1: var(--ivory-card);
+  --bg-2: #EFE9DB;
+  --bg-3: #E3DCCB;
+  --line: var(--hair);
+  --line-strong: var(--hair-strong);
+  --gold-300: #E4C46B;
+  --gold-400: #D4AF37;
+  --gold-500: var(--gold);
+  --gold-600: var(--gold-deep);
+  --cream: var(--ink);
+  --cream-dim: var(--ink-muted);
+  --muted: var(--ink-muted);
+  --faint: var(--ink-faint);
+  --green-bg: var(--green-tint);
+  --red-bg: var(--red-tint);
+}
+
+.dark {
+  /* Design Tokens - Dark / Charcoal Mode */
+  --gold: #C9A227;
+  --gold-deep: #A9840F;
+  --charcoal: #121417;
+  --gunmetal: #1C1F24;
+  --ivory: #17191C;
+  --ivory-card: #202328;
+  --silver: #B8BCC2;
+  --copper: #B87333;
+  --platinum: #8A9BA8;
+  --ink: #F7F4EC;
+  --ink-muted: #B8BCC2;
+  --ink-faint: #6E737B;
+  --green: #2E8B57;
+  --green-tint: rgba(46, 139, 87, 0.15);
+  --red: #C94C4C;
+  --red-tint: rgba(201, 76, 76, 0.15);
+  --hair: rgba(184, 188, 194, 0.14);
+  --hair-strong: rgba(184, 188, 194, 0.25);
+  --gold-glow: rgba(201, 162, 39, 0.25);
+
+  /* Legacy aliases */
+  --bg-0: var(--charcoal);
+  --bg-1: var(--ivory-card);
+  --bg-2: #282C34;
+  --bg-3: #323741;
+  --cream: var(--ink);
+  --cream-dim: var(--ink-muted);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--ivory);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+/* Headings: High-contrast Fraunces display serif */
+h1, h2, h3, .font-display, .font-serif {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* Tabular numerals across all financial numbers */
+.tabular-nums, .font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Institutional Card Surfaces */
+.terminal-card {
+  background-color: var(--ivory-card);
+  border: 1px solid var(--hair);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius);
+}
+
+.terminal-card-hover {
+  transition: all 200ms var(--ease-out);
+}
+.terminal-card-hover:hover {
+  border-color: var(--hair-strong);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Accent Identity Top Borders */
+.card-accent-gold {
+  border-top: 2px solid var(--gold) !important;
+}
+.card-accent-copper {
+  border-top: 2px solid var(--copper) !important;
+}
+.card-accent-silver {
+  border-top: 2px solid var(--silver) !important;
+}
+
+/* Primary CTA Button Gradient */
+.btn-gold {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--gold-deep) 100%);
+  color: #17191C;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: all 150ms ease;
+}
+.btn-gold:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+.btn-gold:active {
+  transform: translateY(1px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ivory);
+}
+.dark ::-webkit-scrollbar-track {
+  background: var(--charcoal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--hair-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--silver);
+}
